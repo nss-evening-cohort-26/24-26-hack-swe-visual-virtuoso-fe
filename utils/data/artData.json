@@ -1,0 +1,58 @@
+{
+  "-Nw7ggoOXzyrPLYxhPAb": {
+    "firebaseKey": "-Nw7ggoOXzyrPLYxhPAb",
+    "image": "http://dummyimage.com/110x100.png/dddddd/000000",
+    "title": "Ethereal Echoes",
+    "details": "A surreal landscape where wisps of mist intertwine with vibrant colors, evoking a sense of dreamlike wonder.",
+    "categories ": "Surrealism"
+  },
+  "-Nw7ggoPLaolAlKEzSyY": {
+    "firebaseKey": "-Nw7ggoPLaolAlKEzSyY",
+    "image": "http://dummyimage.com/107x100.png/ff4444/ffffff",
+    "title": "Whispers of the Forest",
+    "details": " A serene woodland scene bathed in the soft glow of twilight, with delicate shafts of light filtering through the trees.",
+    "categories ": "Impressionism"
+  },
+  "-Nw7ggoQtjYfylNP_jV4": {
+    "firebaseKey": "-Nw7ggoQtjYfylNP_jV4",
+    "image": "http://dummyimage.com/244x100.png/cc0000/ffffff",
+    "title": "Echoes of Eternity",
+    "details": " An abstract composition capturing the interplay of light and shadow, hinting at the infinite depths of the cosmos.",
+    "categories ": "Abstract Expressionism"
+  },
+  "-Nw7ggoR8CQjYxJoiA59": {
+    "firebaseKey": "-Nw7ggoR8CQjYxJoiA59",
+    "image": "http://dummyimage.com/233x100.png/dddddd/000000",
+    "title": "",
+    "details": "A tranquil seascape painted with hues of azure and cobalt, where waves gently caress the shore under a tranquil sky.",
+    "categories ": "Realism"
+  },
+  "-Nw7ggoSAvMQ5PfikcHR": {
+    "firebaseKey": "-Nw7ggoSAvMQ5PfikcHR",
+    "image": "http://dummyimage.com/169x100.png/dddddd/000000",
+    "title": "Urban Melodies",
+    "details": "A dynamic cityscape pulsating with life, where skyscrapers reach for the heavens amidst a symphony of bustling streets.",
+    "categories ": "Cubism"
+  },
+  "-Nw7ggoT2UcWd2gaaKBI": {
+    "firebaseKey": "-Nw7ggoT2UcWd2gaaKBI",
+    "image": "http://dummyimage.com/225x100.png/cc0000/ffffff",
+    "title": "Enigmatic Embrace",
+    "details": "A portrait shrouded in mystery, where the subject's enigmatic gaze invites viewers to ponder the secrets hidden within.",
+    "categories ": "Portraiture "
+  },
+  "-Nw7ggoT2UcWd2gaaKBJ": {
+    "firebaseKey": "-Nw7ggoT2UcWd2gaaKBJ",
+    "image": "http://dummyimage.com/244x100.png/cc0000/ffffff",
+    "title": "Harmony Unveiled",
+    "details": "A still life composition of intricate musical instruments, arranged in perfect harmony and poised to unleash a symphony of sound.",
+    "categories ": "Still Life"
+  },
+  "-Nw7ggoUeBlZyvNyNExZ": {
+    "firebaseKey": "-Nw7ggoUeBlZyvNyNExZ",
+    "image": "http://dummyimage.com/186x100.png/5fa2dd/ffffff",
+    "title": "Celestial Reverie",
+    "details": "A celestial panorama depicting a cosmic dance of stars and galaxies, inviting viewers to contemplate the vastness of the universe.",
+    "categories ": "Romanticism"
+  }
+}
