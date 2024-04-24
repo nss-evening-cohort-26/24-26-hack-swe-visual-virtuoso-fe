@@ -8,6 +8,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
+// import SearchBar from './SearchBar';
 
 export default function NavBar() {
   return (
@@ -21,10 +22,16 @@ export default function NavBar() {
           <Nav className="me-auto">
             {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
             <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
+              <Nav.Link>All Art</Nav.Link>
             </Link>
-            <Link passHref href="/delete-me">
-              <Nav.Link>Delete Me</Nav.Link>
+            <Link passHref href="/add-art">
+              <Nav.Link>Add Art</Nav.Link>
+            </Link>
+            <Link passHref href="/my-art">
+              <Nav.Link>My Art</Nav.Link>
+            </Link>
+            <Link passHref href="/profile">
+              <Nav.Link>Profile</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out
