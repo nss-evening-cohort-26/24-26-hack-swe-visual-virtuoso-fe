@@ -24,10 +24,10 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>All Art</Nav.Link>
             </Link>
-            <Link passHref href="/add-art">
+            <Link passHref href="/myArt/new">
               <Nav.Link>Add Art</Nav.Link>
             </Link>
-            <Link passHref href="/my-art">
+            <Link passHref href="/myArt">
               <Nav.Link>My Art</Nav.Link>
             </Link>
             <Link passHref href="/profile">
