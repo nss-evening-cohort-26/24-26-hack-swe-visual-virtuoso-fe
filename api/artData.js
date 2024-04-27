@@ -1,5 +1,5 @@
 import { clientCredentials } from '../utils/client';
-// API CALLS FOR BOOKS
+// API CALLS FOR ART
 
 const endpoint = clientCredentials.databaseURL;
 
@@ -64,7 +64,7 @@ const updateArt = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => resolve(data))
     .catch(reject);
 });

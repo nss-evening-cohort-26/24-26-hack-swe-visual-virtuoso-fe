@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { deleteArt } from '../api/artData';
 
 function ArtCard({ artObj, onUpdate }) {
-  // FOR DELETE, WE NEED TO REMOVE THE BOOK AND HAVE THE VIEW RERENDER,
-  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE BOOKS
+  // FOR DELETE, WE NEED TO REMOVE THE ART AND HAVE THE VIEW RERENDER,
+  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE ART
   const deleteThisArt = () => {
     if (window.confirm(`Delete ${artObj.title}?`)) {
       deleteArt(artObj.id).then(() => onUpdate());
