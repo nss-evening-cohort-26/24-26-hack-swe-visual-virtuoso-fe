@@ -1,45 +1,130 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
+import { useAuth } from '../../utils/context/authContext';
+import { createArt, updateArt } from '../../api/artData';
 
-function ArtForm() {
+const initialState = {
+  imageUrl: '',
+  title: '',
+  categories: '',
+};
+
+function ArtForm({ obj }) {
+  const [formInput, setFormInput] = useState(initialState);
+  const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (obj.id) setFormInput(obj);
+  }, [obj, user]);
+
+  const handleChange = (e) => {
+    console.warn(e.target);
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (obj.id) {
+      updateArt(formInput).then(() => router.push('/myArt' && '/'));
+    } else {
+      const payload = { ...formInput, uid: user.uid };
+      createArt(payload).then(({ title }) => {
+        const patchPayload = { id: title };
+        updateArt(patchPayload).then(() => {
+          router.push('/myArt' && '/');
+        });
+      });
+    }
+  };
+
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicImage">
-        <Form.Label>Image</Form.Label>
-        <Form.Control type="Image" placeholder="Image" />
-        <Form.Text className="text-muted" />
-      </Form.Group>
+    <Form onSubmit={handleSubmit}>
+      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Art</h2>
+      <FloatingLabel controlId="floatingInput1" label="Art Image" className="mb-3">
+        <Form.Control
+          type="url"
+          placeholder="Enter Image URL"
+          name="imageUrl"
+          value={formInput.imageUrl}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Title</Form.Label>
-        <Form.Control type="password" placeholder="Art Title" />
-      </Form.Group>
+      <FloatingLabel controlId="floatingInput2" label="Art Title" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Enter Title"
+          name="title"
+          value={formInput.title}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Details</Form.Label>
-        <Form.Control type="password" placeholder="Art Description" />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Categories</Form.Label>
-        <Form.Select aria-label="Default select example">
-          <option>Select</option>
-          <option value="1">Surrealism</option>
-          <option value="2">Impressionism</option>
-          <option value="3">Abstract Expressionism</option>
-          <option value="4">Realism</option>
-          <option value="5">Cubism</option>
-          <option value="6">Portraiture</option>
-          <option value="7">Still Life</option>
-          <option value="8">Romanticism</option>
+      <FloatingLabel controlId="floatingSelect3" label="Art Categories" className="mb-3">
+        <Form.Select
+          type="text"
+          placeholder="Select Category"
+          name="categories"
+          value={formInput.categories}
+          onChange={handleChange}
+          required
+        >
+          <option> Select a Category</option>
+          <option value="Surrealism">Surrealism</option>
+          <option value="Impressionism">Impressionism</option>
+          <option value="Abstract Expressionism">Abstract Expressionism</option>
+          <option value="Realism">Realism</option>
+          <option value="Cubism">Cubism</option>
+          <option value="Portraiture">Portraiture</option>
+          <option value="Still Life">Still Life</option>
+          <option value="Romanticism">Romanticism</option>
         </Form.Select>
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
+      </FloatingLabel>
+
+      {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
+      {/* <Form.Check
+        className="text-white mb-3"
+        type="switch"
+        id="favorite"
+        name="favorite"
+        label="Favorite?"
+        checked={formInput.sale}
+        onChange={(e) => {
+          setFormInput((prevState) => ({
+            ...prevState,
+            favortie: e.target.checked,
+          }));
+        }}
+      /> */}
+
+      {/* SUBMIT BUTTON  */}
+      <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
     </Form>
   );
 }
+
+ArtForm.propTypes = {
+  obj: PropTypes.shape({
+    imageUrl: PropTypes.string,
+    title: PropTypes.string,
+    categories: PropTypes.string,
+    id: PropTypes.string,
+  }),
+};
+
+ArtForm.defaultProps = {
+  obj: initialState,
+};
 
 export default ArtForm;

@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { deleteArt } from '../api/artData';
 
 function ArtCard({ artObj, onUpdate }) {
-  // FOR DELETE, WE NEED TO REMOVE THE BOOK AND HAVE THE VIEW RERENDER,
-  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE BOOKS
+  // FOR DELETE, WE NEED TO REMOVE THE ART AND HAVE THE VIEW RERENDER,
+  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE ART
   const deleteThisArt = () => {
     if (window.confirm(`Delete ${artObj.title}?`)) {
       deleteArt(artObj.id).then(() => onUpdate());
@@ -19,7 +19,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
-        {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
+        {/* DYNAMIC LINK TO EDIT THE ART DETAILS  */}
         <Link href={`/art/edit${artObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
