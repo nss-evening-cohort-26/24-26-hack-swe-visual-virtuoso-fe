@@ -19,6 +19,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
+        <span>{artObj.tags}</span>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
         <Link href={`/art/edit${artObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
