@@ -15,6 +15,7 @@ const deleteTag = (id) => new Promise((resolve, reject) => {
     .then((data) => resolve((data)))
     .catch(reject);
 });
+
 const addTagToArtwork = (id, payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/artwork/${id}/tags`, {
     method: 'POST',

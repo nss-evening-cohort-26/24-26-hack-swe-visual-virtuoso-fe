@@ -10,7 +10,7 @@ import { createArt, updateArt } from '../../api/artData';
 const initialState = {
   imageUrl: '',
   title: '',
-  categories: '',
+  tags: '',
 };
 
 function ArtForm({ obj }) {
@@ -75,8 +75,8 @@ function ArtForm({ obj }) {
         <Form.Select
           type="text"
           placeholder="Select Category"
-          name="categories"
-          value={formInput.categories}
+          name="tags"
+          value={formInput.tags}
           onChange={handleChange}
           required
         >
@@ -118,7 +118,7 @@ ArtForm.propTypes = {
   obj: PropTypes.shape({
     imageUrl: PropTypes.string,
     title: PropTypes.string,
-    categories: PropTypes.string,
+    tags: PropTypes.string,
     id: PropTypes.string,
   }),
 };
