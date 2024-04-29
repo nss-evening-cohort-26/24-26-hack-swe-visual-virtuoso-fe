@@ -20,7 +20,6 @@ function Home() {
   useEffect(() => {
     getAllTheArt();
   }, []);
-
   return (
     <div className="text-center my-4">
       <Link href="/myArt/new" passHref>
