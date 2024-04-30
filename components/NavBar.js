@@ -24,6 +24,9 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>All Art</Nav.Link>
             </Link>
+            <Nav.Link href="https://picsart.com/ai-art-generator" target="_blank" rel="noopener noreferrer">
+              Create Art
+            </Nav.Link>
             <Link passHref href="/myArt/new">
               <Nav.Link>Add Art</Nav.Link>
             </Link>
