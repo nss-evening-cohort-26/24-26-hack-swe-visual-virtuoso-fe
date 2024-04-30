@@ -30,7 +30,7 @@ function ArtForm({ obj }) {
       [name]: value,
     }));
   };
-
+  console.warn(formInput);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
