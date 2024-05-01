@@ -24,7 +24,7 @@ function ArtCard({ artObj, onUpdate }) {
         <Link href={`/myArt/${artObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
-        <Link href={`/art/edit${artObj.id}`} passHref>
+        <Link href={`/myArt/edit${artObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisArt} className="m-2">
