@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { viewArtDetails } from '../../api/mergeData';
 
-export default function ViewBook() {
+export default function ViewArt() {
   const [artDetails, setArtDetails] = useState({});
   const router = useRouter();
 

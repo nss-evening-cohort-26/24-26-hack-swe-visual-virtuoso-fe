@@ -4,7 +4,7 @@ import { getSingleTag } from './tagData';
 const viewArtDetails = (artId) => new Promise((resolve, reject) => {
   getSingleArt(artId)
     .then((artObject) => {
-      getSingleTag(artObject.id)
+      getSingleTag(artObject.tagIds)
         .then((tagObject) => {
           resolve({ tagObject, ...artObject });
         });
