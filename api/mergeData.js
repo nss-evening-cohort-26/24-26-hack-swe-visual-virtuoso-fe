@@ -1,14 +1,21 @@
-import { getSingleArt, deleteArt } from './artData';
-import { getSingleTag } from './tagData';
+import { getSingleArt } from './artData';
+// import { deleteTag, getArtTags } from './tagData';
+// import { getSingleTag } from './tagData';
 
-const viewArtDetails = (artId) => new Promise((resolve, reject) => {
-  getSingleArt(artId)
-    .then((artObject) => {
-      getSingleTag(artObject.tagIds)
-        .then((tagObject) => {
-          resolve({ tagObject, ...artObject });
-        });
-    }).catch((error) => reject(error));
-});
+const viewArtDetails = async (artId) => {
+  const art = await getSingleArt(artId);
+  console.warn(art);
+  return { ...art };
+  // getSingleTag(artObject.tagIds);
+};
+// const deleteArtTags = (artwork) => new Promise((resolve, reject) => {
+//   getArtTags(artwork.Id).then((tagsArray) => {
+//     console.warn(tagsArray, 'Author Books');
+//     const deleteTagPromises = tagsArray.map((tag) => deleteTag(tag.Id));
 
-export { viewArtDetails, deleteArt };
+//     Promise.all(deleteTagPromises).then(() => {
+//       deleteArt(artwork).then(resolve);
+//     });
+//   }).catch((error) => reject(error));
+// });
+export default viewArtDetails;

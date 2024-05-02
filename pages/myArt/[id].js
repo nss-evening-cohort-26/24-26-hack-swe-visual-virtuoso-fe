@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { viewArtDetails } from '../../api/mergeData';
+import viewArtDetails from '../../api/mergeData';
+import TagCard from '../../components/TagCard';
 
 export default function ViewArt() {
   const [artDetails, setArtDetails] = useState({});
@@ -18,14 +19,18 @@ export default function ViewArt() {
   return (
     <div className="mt-5 d-flex flex-wrap">
       <div className="d-flex flex-column">
-        <img src={artDetails.imageUrl} alt={artDetails.title} style={{ width: '300px' }} />
+        <img src={artDetails?.imageUrl} alt={artDetails?.title} style={{ width: '300px' }} />
       </div>
       <div className="text-white ms-5 details">
         <h5>
-          {artDetails.title}
-          {artDetails.tagObject?.name}
+          {artDetails?.title}
         </h5>
-        <p>{artDetails.description || ''}</p>
+        <div className="d-flex flex-wrap">
+          {artDetails.tags?.map((tag) => (
+            <TagCard key={tag.id} tagObj={tag} onUpdate={viewArtDetails} />
+          ))}
+        </div>
+        {/* <p>{artDetails?.description || ''}</p> */}
         <hr />
       </div>
     </div>
