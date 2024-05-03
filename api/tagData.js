@@ -3,6 +3,36 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
+const getTags = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tags`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+const getSingleTag = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tags/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.text())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 // TODO: DELETE TAG
 const deleteTag = (id) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/tags/${id}`, {
@@ -29,4 +59,17 @@ const addTagToArtwork = (id, payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { deleteTag, addTagToArtwork };
+const getArtTags = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tags?orderBy="artworkId"&equalTo="${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
+export {
+  getTags, getSingleTag, deleteTag, addTagToArtwork, getArtTags,
+};

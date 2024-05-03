@@ -21,6 +21,9 @@ function ArtCard({ artObj, onUpdate }) {
         <Card.Title>{artObj.title}</Card.Title>
         <Card.Text>{artObj.tags}</Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
+        <Link href={`/myArt/${artObj.id}`} passHref>
+          <Button variant="primary" className="m-2">VIEW</Button>
+        </Link>
         <Link href={`/myArt/edit/${artObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
