@@ -11,7 +11,7 @@ import { createArt, updateArt } from '../../api/artData';
 const initialState = {
   imageUrl: '',
   title: '',
-  tags: '',
+  tagId: { count: 0 },
 };
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
@@ -37,11 +37,8 @@ function ArtForm({ obj }) {
       updateArt(formInput).then(() => router.push(`/artwork/${obj.id}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createArt(payload).then(({ title }) => {
-        const patchPayload = { id: title };
-        updateArt(patchPayload).then(() => {
-          router.push('/myArt' && '/');
-        });
+      createArt(payload).then(() => {
+        router.push('/myArt' && '/');
       });
     }
   };
@@ -100,15 +97,22 @@ function ArtForm({ obj }) {
     </Form>
   );
 }
-
 ArtForm.propTypes = {
   obj: PropTypes.shape({
     imageUrl: PropTypes.string,
     title: PropTypes.string,
-    tags: PropTypes.string,
-    id: PropTypes.string,
+    tagId: PropTypes.number,
+    id: PropTypes.number,
   }),
 };
+// ArtForm.propTypes = {
+//   obj: PropTypes.shape({
+//     imageUrl: PropTypes.string,
+//     title: PropTypes.string,
+//     tags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
+//     id: PropTypes.number,
+//   }),
+// };
 
 ArtForm.defaultProps = {
   obj: initialState,
