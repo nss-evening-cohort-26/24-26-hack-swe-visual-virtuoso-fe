@@ -5,6 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { getTags } from '../../api/tagData';
 import { createArt, updateArt } from '../../api/artData';
 
 const initialState = {
@@ -12,29 +13,28 @@ const initialState = {
   title: '',
   tags: '',
 };
-
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [tags, setTags] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
+    getTags(user.uid).then(setTags);
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
 
   const handleChange = (e) => {
-    console.warn(e.target);
     const { name, value } = e.target;
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
-  console.warn(formInput);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateArt(formInput).then(() => router.push('/myArt' && '/'));
+      updateArt(formInput).then(() => router.push(`/artwork/${obj.id}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createArt(payload).then(({ title }) => {
@@ -71,42 +71,29 @@ function ArtForm({ obj }) {
         />
       </FloatingLabel>
 
-      <FloatingLabel controlId="floatingSelect3" label="Art Categories" className="mb-3">
+      <FloatingLabel controlId="floatingSelect" label="Tags">
         <Form.Select
           type="text"
-          placeholder="Select Category"
+          placeholder="Select Tags"
           name="tags"
-          value={formInput.tags}
           onChange={handleChange}
+          className="mb-3"
+          value={formInput.tags}
           required
         >
-          <option> Select a Category</option>
-          <option value="Surrealism">Surrealism</option>
-          <option value="Impressionism">Impressionism</option>
-          <option value="Abstract Expressionism">Abstract Expressionism</option>
-          <option value="Realism">Realism</option>
-          <option value="Cubism">Cubism</option>
-          <option value="Portraiture">Portraiture</option>
-          <option value="Still Life">Still Life</option>
-          <option value="Romanticism">Romanticism</option>
+          <option value="this">Select Tags</option>
+          {
+            tags.map((tag) => (
+              <option
+                key={tag.name}
+                value={tag.name}
+              >
+                {tag.name}
+              </option>
+            ))
+          }
         </Form.Select>
       </FloatingLabel>
-
-      {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
-      {/* <Form.Check
-        className="text-white mb-3"
-        type="switch"
-        id="favorite"
-        name="favorite"
-        label="Favorite?"
-        checked={formInput.sale}
-        onChange={(e) => {
-          setFormInput((prevState) => ({
-            ...prevState,
-            favortie: e.target.checked,
-          }));
-        }}
-      /> */}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
