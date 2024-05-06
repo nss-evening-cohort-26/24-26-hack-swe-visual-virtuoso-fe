@@ -19,8 +19,8 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
-        <Card.Text>{artObj.tags?.map((t) => (
-          { ...t.tag.name }
+        <Card.Text>{artObj.tags?.map((tag) => (
+          <span key={tag.id}>{tag.name}</span>
         ))}
         </Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}

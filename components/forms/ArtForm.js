@@ -11,19 +11,28 @@ import { createArt, updateArt } from '../../api/artData';
 const initialState = {
   imageUrl: '',
   title: '',
-  tagId: { count: 0 },
+  tagIds: [],
 };
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [tags, setTags] = useState([]);
+  const [selectInput, setSelectInput] = useState();
   const router = useRouter();
   const { user } = useAuth();
-
+  console.warn(selectInput);
   useEffect(() => {
     getTags(user.uid).then(setTags);
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
-
+  // TODO: handleselect for tags
+  const handleSelect = (x) => {
+    const { tagIds, value } = x.target;
+    setSelectInput((prevState) => ({
+      ...prevState,
+      [tagIds]: value,
+    }));
+  };
+  // (x) => formInput.tagIds.push(x)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -34,7 +43,7 @@ function ArtForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateArt(formInput).then(() => router.push(`/artwork/${obj.id}`));
+      updateArt(formInput).then(() => router.push('/myArt' && '/'));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createArt(payload).then(() => {
@@ -42,6 +51,21 @@ function ArtForm({ obj }) {
       });
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (obj.id) {
+  //     updateArt(formInput).then(() => router.push('/myArt' && '/'));
+  //   } else {
+  //     const payload = { ...formInput, uid: user.uid };
+  //     createArt(payload).then(({ title }) => {
+  //       const patchPayload = { id: title };
+  //       updateArt(patchPayload).then(() => {
+  //         router.push('/myArt' && '/');
+  //       });
+  //     });
+  //   }
+  // };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -73,7 +97,7 @@ function ArtForm({ obj }) {
           type="text"
           placeholder="Select Tags"
           name="tags"
-          onChange={handleChange}
+          onChange={handleSelect}
           className="mb-3"
           value={formInput.tags}
           required
@@ -83,7 +107,7 @@ function ArtForm({ obj }) {
             tags.map((tag) => (
               <option
                 key={tag.name}
-                value={tag.name}
+                value={tag.id}
               >
                 {tag.name}
               </option>
@@ -101,7 +125,7 @@ ArtForm.propTypes = {
   obj: PropTypes.shape({
     imageUrl: PropTypes.string,
     title: PropTypes.string,
-    tagId: PropTypes.number,
+    tagIds: PropTypes.number,
     id: PropTypes.number,
   }),
 };
