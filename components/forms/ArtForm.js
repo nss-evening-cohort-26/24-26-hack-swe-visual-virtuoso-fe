@@ -5,46 +5,67 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
+import { getTags } from '../../api/tagData';
 import { createArt, updateArt } from '../../api/artData';
 
 const initialState = {
   imageUrl: '',
   title: '',
-  tags: '',
+  tagIds: [],
 };
-
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [tags, setTags] = useState([]);
+  const [selectInput, setSelectInput] = useState();
   const router = useRouter();
   const { user } = useAuth();
-
+  console.warn(selectInput);
   useEffect(() => {
+    getTags(user.uid).then(setTags);
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
-
+  // TODO: handleselect for tags
+  const handleSelect = (x) => {
+    const { tagIds, value } = x.target;
+    setSelectInput((prevState) => ({
+      ...prevState,
+      [tagIds]: value,
+    }));
+  };
+  // (x) => formInput.tagIds.push(x)
   const handleChange = (e) => {
-    console.warn(e.target);
     const { name, value } = e.target;
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
-  console.warn(formInput);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
       updateArt(formInput).then(() => router.push('/myArt' && '/'));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createArt(payload).then(({ title }) => {
-        const patchPayload = { id: title };
-        updateArt(patchPayload).then(() => {
-          router.push('/myArt' && '/');
-        });
+      createArt(payload).then(() => {
+        router.push('/myArt' && '/');
       });
     }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (obj.id) {
+  //     updateArt(formInput).then(() => router.push('/myArt' && '/'));
+  //   } else {
+  //     const payload = { ...formInput, uid: user.uid };
+  //     createArt(payload).then(({ title }) => {
+  //       const patchPayload = { id: title };
+  //       updateArt(patchPayload).then(() => {
+  //         router.push('/myArt' && '/');
+  //       });
+  //     });
+  //   }
+  // };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -71,57 +92,51 @@ function ArtForm({ obj }) {
         />
       </FloatingLabel>
 
-      <FloatingLabel controlId="floatingSelect3" label="Art Categories" className="mb-3">
+      <FloatingLabel controlId="floatingSelect" label="Tags">
         <Form.Select
           type="text"
-          placeholder="Select Category"
+          placeholder="Select Tags"
           name="tags"
+          onChange={handleSelect}
+          className="mb-3"
           value={formInput.tags}
-          onChange={handleChange}
           required
         >
-          <option> Select a Category</option>
-          <option value="Surrealism">Surrealism</option>
-          <option value="Impressionism">Impressionism</option>
-          <option value="Abstract Expressionism">Abstract Expressionism</option>
-          <option value="Realism">Realism</option>
-          <option value="Cubism">Cubism</option>
-          <option value="Portraiture">Portraiture</option>
-          <option value="Still Life">Still Life</option>
-          <option value="Romanticism">Romanticism</option>
+          <option value="this">Select Tags</option>
+          {
+            tags.map((tag) => (
+              <option
+                key={tag.name}
+                value={tag.id}
+              >
+                {tag.name}
+              </option>
+            ))
+          }
         </Form.Select>
       </FloatingLabel>
-
-      {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
-      {/* <Form.Check
-        className="text-white mb-3"
-        type="switch"
-        id="favorite"
-        name="favorite"
-        label="Favorite?"
-        checked={formInput.sale}
-        onChange={(e) => {
-          setFormInput((prevState) => ({
-            ...prevState,
-            favortie: e.target.checked,
-          }));
-        }}
-      /> */}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
     </Form>
   );
 }
-
 ArtForm.propTypes = {
   obj: PropTypes.shape({
     imageUrl: PropTypes.string,
     title: PropTypes.string,
-    tags: PropTypes.string,
-    id: PropTypes.string,
+    tagIds: PropTypes.number,
+    id: PropTypes.number,
   }),
 };
+// ArtForm.propTypes = {
+//   obj: PropTypes.shape({
+//     imageUrl: PropTypes.string,
+//     title: PropTypes.string,
+//     tags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
+//     id: PropTypes.number,
+//   }),
+// };
 
 ArtForm.defaultProps = {
   obj: initialState,
