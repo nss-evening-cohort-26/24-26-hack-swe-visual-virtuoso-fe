@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-// import { useAuth } from '../utils/context/authContext';
+import { useAuth } from '../utils/context/authContext';
 import { getArt } from '../api/artData';
 import ArtCard from '../components/ArtCard';
 
@@ -9,7 +9,8 @@ function Home() {
   const [art, setArt] = useState([]);
 
   // TODO: Get user ID using useAuth Hook
-  // const { user } = useAuth();
+  const { user } = useAuth();
+  console.warn(user);
 
   // TODO: create a function that makes the API call to get all the books
   const getAllTheArt = () => {
