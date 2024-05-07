@@ -13,6 +13,7 @@ function ArtCard({ artObj, onUpdate }) {
       deleteArt(artObj.id).then(() => onUpdate());
     }
   };
+  console.warn(artObj);
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
@@ -20,7 +21,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
         <Card.Text>{artObj.tags?.map((tag) => (
-          <span key={tag.id}>{tag.name}</span>
+          <span key={tag.tag.id}>{tag.tag.name}</span>
         ))}
         </Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
