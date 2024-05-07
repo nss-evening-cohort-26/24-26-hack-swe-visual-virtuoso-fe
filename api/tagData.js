@@ -69,7 +69,16 @@ const getArtTags = (id) => new Promise((resolve, reject) => {
     .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
-
+const getAllArtTags = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/artworkTags?orderBy="artworkId"&equalTo="${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
 export {
-  getTags, getSingleTag, deleteTag, addTagToArtwork, getArtTags,
+  getTags, getSingleTag, deleteTag, addTagToArtwork, getArtTags, getAllArtTags,
 };

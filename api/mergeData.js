@@ -8,6 +8,13 @@ const viewArtDetails = async (artId) => {
   return { ...art };
   // getSingleTag(artObject.tagIds);
 };
+// const getArtAndTags = async () => {
+//   const art = await getArt()
+  // get all art tags
+  // get each single tag in art
+  // resolve array of art
+  // get art details or get art and tags compare them
+
 // const deleteArtTags = (artwork) => new Promise((resolve, reject) => {
 //   getArtTags(artwork.Id).then((tagsArray) => {
 //     console.warn(tagsArray, 'Author Books');

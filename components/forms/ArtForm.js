@@ -16,20 +16,26 @@ const initialState = {
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [tags, setTags] = useState([]);
-  const [selectInput, setSelectInput] = useState();
+  // const [selectInput, setSelectInput] = useState();
   const router = useRouter();
   const { user } = useAuth();
-  console.warn(selectInput);
   useEffect(() => {
     getTags(user.uid).then(setTags);
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
   // TODO: handleselect for tags
-  const handleSelect = (x) => {
-    const { tagIds, value } = x.target;
-    setSelectInput((prevState) => ({
+  // const handleSelect = (x) => {
+  //   const { tagIds, value } = x.target;
+  //   setSelectInput((prevState) => ({
+  //     ...prevState,
+  //     [tagIds]: value,
+  //   }));
+  // };
+  const handleSelect = (e) => {
+    const { value } = e.target;
+    setFormInput((prevState) => ({
       ...prevState,
-      [tagIds]: value,
+      tagIds: [...prevState.tagIds, value], // Add selected value to tagIds
     }));
   };
   // (x) => formInput.tagIds.push(x)
@@ -125,7 +131,7 @@ ArtForm.propTypes = {
   obj: PropTypes.shape({
     imageUrl: PropTypes.string,
     title: PropTypes.string,
-    tagIds: PropTypes.number,
+    tagIds: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
   }),
 };
