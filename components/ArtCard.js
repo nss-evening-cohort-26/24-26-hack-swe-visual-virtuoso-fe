@@ -13,14 +13,21 @@ function ArtCard({ artObj, onUpdate }) {
       deleteArt(artObj.id).then(() => onUpdate());
     }
   };
+  console.warn(artObj);
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
-        <Card.Text>{artObj.tags}</Card.Text>
+        <Card.Text>{artObj.tags?.map((tag) => (
+          <span key={tag.tag.id}>{tag.tag.name}</span>
+        ))}
+        </Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
+        <Link href={`/myArt/${artObj.id}`} passHref>
+          <Button variant="primary" className="m-2">VIEW</Button>
+        </Link>
         <Link href={`/myArt/edit/${artObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
@@ -38,7 +45,7 @@ ArtCard.propTypes = {
     title: PropTypes.string,
     imageUrl: PropTypes.string,
     userId: PropTypes.string,
-    tags: PropTypes.string,
+    tags: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
