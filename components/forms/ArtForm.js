@@ -23,22 +23,6 @@ function ArtForm({ obj }) {
     getTags(user.uid).then(setTags);
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
-  // TODO: handleselect for tags
-  // const handleSelect = (x) => {
-  //   const { tagIds, value } = x.target;
-  //   setSelectInput((prevState) => ({
-  //     ...prevState,
-  //     [tagIds]: value,
-  //   }));
-  // };
-  const handleSelect = (e) => {
-    const { value } = e.target;
-    setFormInput((prevState) => ({
-      ...prevState,
-      tagIds: [...prevState.tagIds, value], // Add selected value to tagIds
-    }));
-  };
-  // (x) => formInput.tagIds.push(x)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -46,32 +30,21 @@ function ArtForm({ obj }) {
       [name]: value,
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
       updateArt(formInput).then(() => router.push('/myArt' && '/'));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createArt(payload).then(() => {
-        router.push('/myArt' && '/');
+      createArt(payload).then(({ title }) => {
+        const patchPayload = { id: title };
+        updateArt(patchPayload).then(() => {
+          router.push('/myArt' && '/');
+        });
       });
     }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (obj.id) {
-  //     updateArt(formInput).then(() => router.push('/myArt' && '/'));
-  //   } else {
-  //     const payload = { ...formInput, uid: user.uid };
-  //     createArt(payload).then(({ title }) => {
-  //       const patchPayload = { id: title };
-  //       updateArt(patchPayload).then(() => {
-  //         router.push('/myArt' && '/');
-  //       });
-  //     });
-  //   }
-  // };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -103,7 +76,7 @@ function ArtForm({ obj }) {
           type="text"
           placeholder="Select Tags"
           name="tags"
-          onChange={handleSelect}
+          onChange={handleChange}
           className="mb-3"
           value={formInput.tags}
           required
@@ -135,14 +108,6 @@ ArtForm.propTypes = {
     id: PropTypes.number,
   }),
 };
-// ArtForm.propTypes = {
-//   obj: PropTypes.shape({
-//     imageUrl: PropTypes.string,
-//     title: PropTypes.string,
-//     tags: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, name: PropTypes.string })),
-//     id: PropTypes.number,
-//   }),
-// };
 
 ArtForm.defaultProps = {
   obj: initialState,
