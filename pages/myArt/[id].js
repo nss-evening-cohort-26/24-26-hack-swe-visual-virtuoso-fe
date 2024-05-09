@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import viewArtDetails from '../../api/mergeData';
-import TagCard from '../../components/TagCard';
+// import TagCard from '../../components/TagCard';
 
 export default function ViewArt() {
   const [artDetails, setArtDetails] = useState({});
@@ -26,11 +26,9 @@ export default function ViewArt() {
           {artDetails?.title}
         </h5>
         <div className="d-flex flex-wrap">
-          {artDetails.tags?.map((tag) => (
-            <TagCard key={tag.id} tagObj={tag} onUpdate={viewArtDetails} />
-          ))}
+          {artDetails.tagObject?.tags}
         </div>
-        {/* <p>{artDetails?.description || ''}</p> */}
+        <p>{artDetails?.description || ''}</p>
         <hr />
       </div>
     </div>
