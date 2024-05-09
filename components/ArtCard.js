@@ -20,6 +20,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
+        <Card.Text>{artObj.description}</Card.Text>
         <Card.Text>{artObj.tags?.map((tag) => (
           <span key={tag.tag.id}>{tag.tag.name} </span>
         ))}
@@ -43,6 +44,7 @@ ArtCard.propTypes = {
   artObj: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
+    description: PropTypes.string,
     imageUrl: PropTypes.string,
     userId: PropTypes.string,
     tags: PropTypes.number,
