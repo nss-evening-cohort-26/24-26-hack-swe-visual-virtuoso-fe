@@ -55,13 +55,13 @@ function ArtForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateArt(formInput).then(() => router.push('/myArt' && '/'));
+      updateArt(formInput).then(() => router.push('/'));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createArt(payload).then((title) => {
         const patchPayload = { id: title };
         updateArt(patchPayload).then(() => {
-          router.push('/myArt' && '/');
+          router.push('/');
         });
       });
     }
