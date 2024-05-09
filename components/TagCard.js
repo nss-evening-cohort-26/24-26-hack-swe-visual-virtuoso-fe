@@ -19,7 +19,10 @@ function TagCard({ tagObj }) { // add onUpdate here
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Body>
-        <Card.Title>{tagObj.name}</Card.Title>
+        <Card.Title>{tagObj.tags?.map((tag) => (
+          <span key={tag.tag.id}>{tag.tag.name} </span>
+        ))}
+        </Card.Title>
         {/* <Button variant="danger" onClick={deleteThisTag} className="m-2">
           DELETE
         </Button> */}
@@ -31,6 +34,7 @@ function TagCard({ tagObj }) { // add onUpdate here
 TagCard.propTypes = {
   tagObj: PropTypes.shape({
     name: PropTypes.string,
+    tags: PropTypes.number,
   }).isRequired,
   // onUpdate: PropTypes.func.isRequired,
 };
