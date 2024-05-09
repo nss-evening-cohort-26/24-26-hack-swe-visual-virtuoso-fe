@@ -30,9 +30,14 @@ function ArtForm({ obj }) {
     getTags(user.uid).then(setTags);
     if (obj.id) {
       setFormInput(obj);
-      console.warn(obj);
       // Update tagIds state with existing tags
-      setTags((prevState) => prevState.filter((tag) => obj.tagIds?.includes(tag.id)));
+      setTags((prevState) => prevState.map((tag) => ({
+        ...tag,
+        isSelected: obj.tagIds?.includes(tag.id),
+      })),
+      // setTags((prevState) => prevState.filter((tag) => obj.tagIds?.includes(tag.id)));
+      // eslint-disable-next-line function-paren-newline
+      );
     }
   }, [obj, user]);
 
@@ -107,6 +112,19 @@ function ArtForm({ obj }) {
 
       <FloatingLabel controlId="floatingSelect" label="">
         <Select
+          value={formInput.tagIds?.map((id) => tags.find((tag) => tag.id === id))} // Find pre-selected tags based on tagIds
+          isMulti // Enable multi-select
+          onChange={handleTagChange}
+          options={tags.map((tag) => ({
+            label: tag.name,
+            value: tag.id,
+          }))}
+          className="mb-3"
+        />
+      </FloatingLabel>
+
+      {/* <FloatingLabel controlId="floatingSelect" label="">
+        <Select
           value={formInput.tags?.map((tag) => ({
             label: tag.tag.name,
             value: tag.tag.id,
@@ -119,7 +137,7 @@ function ArtForm({ obj }) {
           }))}
           className="mb-3"
         />
-      </FloatingLabel>
+      </FloatingLabel> */}
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
