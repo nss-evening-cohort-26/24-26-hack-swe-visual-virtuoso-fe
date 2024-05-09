@@ -15,7 +15,7 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Link passHref href="/">
-          <Navbar.Brand>CHANGE ME</Navbar.Brand>
+          <Navbar.Brand>Visual Virtuoso</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -29,9 +29,6 @@ export default function NavBar() {
             </Nav.Link>
             <Link passHref href="/myArt/new">
               <Nav.Link>Add Art</Nav.Link>
-            </Link>
-            <Link passHref href="/myArt">
-              <Nav.Link>My Art</Nav.Link>
             </Link>
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>

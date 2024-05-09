@@ -5,13 +5,14 @@ import { useAuth } from '../utils/context/authContext';
 
 export default function UserCard() {
   const { user } = useAuth();
+  console.warn(user);
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img variant="top" src={user.image} style={{ height: '250px' }} />
+      <Card.Img variant="top" src={user.fbUser.photoURL} style={{ height: '250px' }} />
       <Card.Body>
-        <Card.Title>{user.firstName} {user.lastName}</Card.Title>
-        <p className="card-text bold">Email: {user.email}</p>
-        <p className="card-text bold">Bio: {user.bio}</p>
+        <Card.Title>{user.fbUser.displayName}</Card.Title>
+        <p className="card-text bold">Email: {user.fbUser.email}</p>
+        <p className="card-text bold">Last Sign In: {user.fbUser.metadata.lastSignInTime}</p>
       </Card.Body>
     </Card>
   );
