@@ -21,7 +21,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
         <Card.Text>{artObj.tags?.map((tag) => (
-          <span key={tag.tag.id}>{tag.tag.name}</span>
+          <span key={tag.tag.id}>{tag.tag.name} </span>
         ))}
         </Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
