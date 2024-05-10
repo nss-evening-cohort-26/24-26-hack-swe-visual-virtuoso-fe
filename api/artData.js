@@ -58,7 +58,7 @@ const createArt = (payload) => new Promise((resolve, reject) => {
 // TODO: UPDATE ART
 const updateArt = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/artwork/${payload.id}`, {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -109,7 +109,7 @@ function ArtForm({ obj }) {
           required
         />
       </FloatingLabel>
-
+      {/*
       <FloatingLabel controlId="floatingSelect" label="">
         <Select
           value={formInput.tagIds?.map((id) => tags.find((tag) => tag.id === id))} // Find pre-selected tags based on tagIds
@@ -121,9 +121,9 @@ function ArtForm({ obj }) {
           }))}
           className="mb-3"
         />
-      </FloatingLabel>
+      </FloatingLabel> */}
 
-      {/* <FloatingLabel controlId="floatingSelect" label="">
+      <FloatingLabel controlId="floatingSelect" label="">
         <Select
           value={formInput.tags?.map((tag) => ({
             label: tag.tag.name,
@@ -137,7 +137,7 @@ function ArtForm({ obj }) {
           }))}
           className="mb-3"
         />
-      </FloatingLabel> */}
+      </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
