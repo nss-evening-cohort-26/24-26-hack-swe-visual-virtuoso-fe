@@ -19,6 +19,7 @@ const initialState = {
 function ArtForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [tags, setTags] = useState([]);
+  const [tagData, setTagData] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -27,22 +28,37 @@ function ArtForm({ obj }) {
   //   if (obj.id) setFormInput(obj);
   // }, [obj, user]);
   useEffect(() => {
-    getTags(user.uid).then(setTags);
-    if (obj.id) {
-      setFormInput(obj);
-      // Update tagIds state with existing tags
-      setTags((prevState) => prevState.map((tag) => ({
-        ...tag,
-        isSelected: obj.tagIds?.includes(tag.id),
-      })),
-      // setTags((prevState) => prevState.filter((tag) => obj.tagIds?.includes(tag.id)));
-      // eslint-disable-next-line function-paren-newline
-      );
-    }
+    getTags(user.uid).then((data) => {
+      if (obj.id) {
+        setFormInput({ ...obj, tagIds: obj.artworkTags.map((tag) => tag.tag.id) });
+        setTagData(obj.artworkTags.map((tag) => tag.tag.id));
+        // Update tagIds state with existing tags
+        console.warn(obj.artworkTags);
+        setTags(() => data.map((tag) => ({
+          ...tag,
+          isSelected: obj.artworkTags?.some((t) => t.tag.id === tag.id),
+        })),
+        // setTags((prevState) => prevState.filter((tag) => obj.tagIds?.includes(tag.id)));
+        // eslint-disable-next-line function-paren-newline
+        );
+      } else { setTags(data); }
+    });
+    console.warn(tags);
   }, [obj, user]);
+
+  useEffect(() => {
+    console.warn(formInput);
+    setTagData(formInput.tagIds);
+    const tagsArray = formInput.artworkTags?.map((tag) => ({
+      label: tag.tag.name,
+      value: tag.tag.id,
+    }));
+    console.warn(tagsArray);
+  }, [formInput]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.warn(e);
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -50,6 +66,9 @@ function ArtForm({ obj }) {
   };
 
   const handleTagChange = (selectedOptions) => {
+    console.warn(selectedOptions);
+    console.warn(formInput);
+    console.warn(tags);
     // Update formInput.tagIds with the selected tag IDs
     setFormInput((prevState) => ({
       ...prevState,
@@ -71,7 +90,6 @@ function ArtForm({ obj }) {
       });
     }
   };
-  console.warn(obj);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -109,26 +127,10 @@ function ArtForm({ obj }) {
           required
         />
       </FloatingLabel>
-      {/*
-      <FloatingLabel controlId="floatingSelect" label="">
-        <Select
-          value={formInput.tagIds?.map((id) => tags.find((tag) => tag.id === id))} // Find pre-selected tags based on tagIds
-          isMulti // Enable multi-select
-          onChange={handleTagChange}
-          options={tags.map((tag) => ({
-            label: tag.name,
-            value: tag.id,
-          }))}
-          className="mb-3"
-        />
-      </FloatingLabel> */}
 
       <FloatingLabel controlId="floatingSelect" label="">
         <Select
-          value={formInput.tags?.map((tag) => ({
-            label: tag.tag.name,
-            value: tag.tag.id,
-          }))}
+          value={tagData}
           isMulti // Enable multi-select
           onChange={handleTagChange}
           options={tags.map((tag) => ({
@@ -136,6 +138,7 @@ function ArtForm({ obj }) {
             value: tag.id,
           }))}
           className="mb-3"
+          onRemove={(e) => console.warn(e)}
         />
       </FloatingLabel>
 
@@ -150,8 +153,9 @@ ArtForm.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     tags: PropTypes.string,
-    tagIds: PropTypes.arrayOf(PropTypes.number),
+    tagsIds: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
+    artworkTags: PropTypes.arrayOf,
   }),
 };
 
