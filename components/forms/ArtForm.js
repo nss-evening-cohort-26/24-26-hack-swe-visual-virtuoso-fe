@@ -71,7 +71,7 @@ function ArtForm({ obj }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Art</h2>
+      <h2 style={{ color: 'black' }}>{obj.id ? 'Update' : 'Create'} Art</h2>
       <FloatingLabel controlId="floatingInput1" label="Art Image" className="mb-3">
         <Form.Control
           type="url"
@@ -109,8 +109,8 @@ function ArtForm({ obj }) {
         ))}
       </div>
 
-      {/* SUBMIT BUTTON */}
-      <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
+      {/* SUBMIT BUTTON  */}
+      <Button style={{ background: 'green' }} type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
     </Form>
   );
 }

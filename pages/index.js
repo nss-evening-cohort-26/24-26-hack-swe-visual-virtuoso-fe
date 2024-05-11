@@ -24,7 +24,7 @@ function Home() {
   return (
     <div className="text-center my-4">
       <Link href="/myArt/new" passHref>
-        <Button>Add Artwork</Button>
+        <Button style={{ background: 'green' }}>Add Artwork</Button>
       </Link>
       <div className="d-flex flex-wrap">
         {/* TODO: map over art here using ArtCard component */}
