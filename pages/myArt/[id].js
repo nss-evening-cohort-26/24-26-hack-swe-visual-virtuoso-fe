@@ -24,16 +24,11 @@ export default function ViewArt() {
         </h5>
         <div style={{ color: 'black', border: 'solid, 2px, black' }} className="d-flex flex-wrap">
           {artDetails.artworkTags?.map((tag) => (
-            <span key={tag.tag.id}>{tag.tag.name} </span>
+            <span key={tag.tag.id} style={{ margin: '3px' }}>{tag.tag.name} </span>
           ))}
-          <div className="d-flex flex-wrap">
-            {artDetails.artworkTags?.map((tag) => (
-              <span key={tag.tag.id} style={{ margin: '3px' }}>{tag.tag.name} </span>
-            ))}
-          </div>
-          <p>{artDetails?.description || ''}</p>
-          <hr />
         </div>
+        <p>{artDetails?.description || ''}</p>
+        <hr />
       </div>
     </div>
   );
