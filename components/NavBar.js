@@ -36,9 +36,6 @@ export default function NavBar() {
             <Link passHref href="/myArt/new">
               <Nav.Link>Add Art</Nav.Link>
             </Link>
-            <Link passHref href="/myArt">
-              <Nav.Link>My Art</Nav.Link>
-            </Link>
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>
             </Link>
