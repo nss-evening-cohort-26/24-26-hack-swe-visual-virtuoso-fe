@@ -14,23 +14,24 @@ function ArtCard({ artObj, onUpdate }) {
     }
   };
   console.warn(artObj);
-
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
+    <Card style={{
+      width: '18rem', margin: '10px', border: 'solid 5px black', background: 'grey',
+    }}
+    >
       <Card.Img variant="top" src={artObj.imageUrl} alt={artObj.title} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
-        <Card.Text>{artObj.description}</Card.Text>
-        <Card.Text>{artObj.tags?.map((tag) => (
+        <Card.Text>{artObj.artworkTags?.map((tag) => (
           <span key={tag.tag.id}>{tag.tag.name} </span>
         ))}
         </Card.Text>
         {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
         <Link href={`/myArt/${artObj.id}`} passHref>
-          <Button variant="primary" className="m-2">VIEW</Button>
+          <Button style={{ background: 'teal' }} variant="primary" className="m-2">VIEW</Button>
         </Link>
         <Link href={`/myArt/edit/${artObj.id}`} passHref>
-          <Button variant="info">EDIT</Button>
+          <Button style={{ background: 'goldenrod' }} variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisArt} className="m-2">
           DELETE
@@ -39,17 +40,14 @@ function ArtCard({ artObj, onUpdate }) {
     </Card>
   );
 }
-
 ArtCard.propTypes = {
   artObj: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
-    description: PropTypes.string,
     imageUrl: PropTypes.string,
     userId: PropTypes.string,
-    tags: PropTypes.number,
+    artworkTags: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
-
 export default ArtCard;

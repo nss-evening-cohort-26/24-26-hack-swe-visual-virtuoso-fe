@@ -70,7 +70,7 @@ function ArtForm({ obj }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Art</h2>
+      <h2 style={{ color: 'black' }}>{obj.id ? 'Update' : 'Create'} Art</h2>
       <FloatingLabel controlId="floatingInput1" label="Art Image" className="mb-3">
         <Form.Control
           type="url"
@@ -107,10 +107,10 @@ function ArtForm({ obj }) {
 
       <FloatingLabel controlId="floatingSelect" label="">
         <Select
-          value={formInput.tags?.map((tag) => ({
-            label: tag.tag.name,
-            value: tag.tag.id,
-          }))}
+          // value={formInput.tags?.map((tag) => ({
+          //   label: tag.tag.name,
+          //   value: tag.tag.id,
+          // }))}
           isMulti // Enable multi-select
           onChange={handleTagChange}
           options={tags.map((tag) => ({
@@ -122,7 +122,7 @@ function ArtForm({ obj }) {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
+      <Button style={{ background: 'green' }} type="submit">{obj.id ? 'Update' : 'Create'} Art</Button>
     </Form>
   );
 }

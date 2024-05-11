@@ -12,7 +12,13 @@ import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar
+      style={{ background: '#71797E' }}
+      collapseOnSelect
+      expand="lg"
+      bg="darkgrey"
+      variant="dark"
+    >
       <Container>
         <Link passHref href="/">
           <Navbar.Brand>Visual Virtuoso</Navbar.Brand>
@@ -30,10 +36,13 @@ export default function NavBar() {
             <Link passHref href="/myArt/new">
               <Nav.Link>Add Art</Nav.Link>
             </Link>
+            <Link passHref href="/myArt">
+              <Nav.Link>My Art</Nav.Link>
+            </Link>
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>
             </Link>
-            <Button variant="danger" onClick={signOut}>
+            <Button style={{ background: 'green' }} variant="danger" onClick={signOut}>
               Sign Out
             </Button>
           </Nav>

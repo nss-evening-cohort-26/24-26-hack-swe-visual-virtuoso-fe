@@ -7,6 +7,7 @@ function Signin() {
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
       style={{
+        backgroundImage: 'url(https://img.freepik.com/free-vector/watercolor-oil-painting-background_52683-106312.jpg)',
         height: '90vh',
         padding: '30px',
         margin: '0 auto',
