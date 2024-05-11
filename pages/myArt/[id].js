@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import viewArtDetails from '../../api/mergeData';
+import { getSingleArt } from '../../api/artData';
 // import TagCard from '../../components/TagCard';
 
 export default function ViewArt() {
@@ -13,7 +13,7 @@ export default function ViewArt() {
 
   // TODO: make call to API layer to get the data
   useEffect(() => {
-    viewArtDetails(id).then(setArtDetails);
+    getSingleArt(id).then(setArtDetails);
   }, [id]);
 
   return (
@@ -26,7 +26,9 @@ export default function ViewArt() {
           {artDetails?.title}
         </h5>
         <div className="d-flex flex-wrap">
-          {artDetails.tagObject?.tags}
+          {artDetails.artworkTags?.map((tag) => (
+            <span key={tag.tag.id} style={{ margin: '3px' }}>{tag.tag.name} </span>
+          ))}
         </div>
         <p>{artDetails?.description || ''}</p>
         <hr />

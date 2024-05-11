@@ -21,7 +21,7 @@ function ArtCard({ artObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{artObj.title}</Card.Title>
         <Card.Text>{artObj.description}</Card.Text>
-        <Card.Text>{artObj.tags?.map((tag) => (
+        <Card.Text>{artObj.artworkTags?.map((tag) => (
           <span key={tag.tag.id}>{tag.tag.name} </span>
         ))}
         </Card.Text>
@@ -47,7 +47,7 @@ ArtCard.propTypes = {
     description: PropTypes.string,
     imageUrl: PropTypes.string,
     userId: PropTypes.string,
-    tags: PropTypes.number,
+    artworkTags: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
